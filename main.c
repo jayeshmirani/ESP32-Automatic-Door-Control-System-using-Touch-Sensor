@@ -42,11 +42,11 @@ void setup()
 void loop()
 {
    // put your main code here, to run repeatedly:
-  WiFiClient client = server.available();
+  WiFiClient client = server.available(); // Check whether some client(device) has connected our server.
   if(client)
   {
     int correct=1;
-    if(login==false)
+    if(login==false) //No need to repeat the same process again and again if the user has logged in successfully.
     {
     touch_val = touchRead(4); // read touch value
     int i;
@@ -59,20 +59,20 @@ void loop()
     }
     Serial.println("Enter Password");
     int j;
-    int pw_arr[4]= {1,0,0,0};
+    int pw_arr[4]= {1,0,0,0}; //binary representation of 8
         for(j=0;j<4 && correct;j++)
         {
             Serial.println("Reading bit no " + String(4-j));
             delay(1000);
             touch_val= touchRead(4);
             
-            if(touch_val < 16)
+            if(touch_val < 16) //Threshold to check whether sensor has been touched or not
                 touch_bool=1;
             Serial.print("touch_bool: ");
             Serial.println(touch_bool);
             if(touch_bool != pw_arr[j])
             {
-              correct=0;
+              correct=0; 
             }
             touch_bool=0;
             Serial.print("Current bit is correct: ");
